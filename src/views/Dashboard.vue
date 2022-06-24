@@ -17,7 +17,7 @@
                 d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
               ></path>
             </svg>
-            Dashboard
+           Maloanwax Dashboard {{ testimage }}
           </a>
         </li>
       </ol>
@@ -25,7 +25,7 @@
     <!-- end nav -->
     <div class="mt-5 w-full">
       <h1 class="text-2xl text-gray-900 dark:text-gray-200 font-medium">
-        Dashboard
+       Maloanwax Dashboard
       </h1>
     </div>
     <!-- grid wrapper card -->
@@ -61,9 +61,9 @@
 
         <div class="block p-2 w-full">
           <p class="font-semibold text-gray-900 dark:text-gray-200 text-xl">
-            Rp.2 300 908
+            {{pool_remain}} WAX
           </p>
-          <h2 class="font-normal text-gray-400 text-md mt-1">Total Payouts</h2>
+          <h2 class="font-normal text-gray-400 text-md mt-1">Pool Remain</h2>
         </div>
       </div>
       <!-- end card -->
@@ -95,9 +95,9 @@
 
         <div class="block p-2 w-full">
           <p class="font-semibold text-gray-900 dark:text-gray-200 text-xl">
-            256
+            {{total_transaction}}
           </p>
-          <h2 class="font-normal text-gray-400 text-md mt-1">Total Sales</h2>
+          <h2 class="font-normal text-gray-400 text-md mt-1">Total Transaction</h2>
         </div>
       </div>
       <!-- end card -->
@@ -133,10 +133,10 @@
 
         <div class="block p-2 w-full">
           <p class="font-semibold text-gray-900 dark:text-gray-200 text-xl">
-            3569
+            {{current_customer}}
           </p>
           <h2 class="font-normal text-gray-400 text-md mt-1">
-            Total Customers
+            Current Customers
           </h2>
         </div>
       </div>
@@ -171,14 +171,15 @@
 
         <div class="block p-2 w-full">
           <p class="font-semibold text-gray-900 dark:text-gray-200 text-xl">
-            7 230
+            {{total_refund}} WAX
           </p>
-          <h2 class="font-normal text-gray-400 text-md mt-1">Total Visit</h2>
+          <h2 class="font-normal text-gray-400 text-md mt-1">Refunding</h2>
         </div>
       </div>
       <!-- end card -->
     </div>
     <!-- end wrapper card -->
+    <!--
     <div class="mt-2 lg:flex block lg:gap-2">
       <div
         class="bg-white dark:bg-gray-800 p-5 w-full rounded-md box-border shadow"
@@ -199,7 +200,7 @@
         </span>
         <span class="float-right">
           <h2 class="text-green-500 -mt-12 flex">
-            <span class="mr-2"> 87.9% </span
+            <span class="mr-2"> 87% </span
             ><span>
               <Icon icon="akar-icons:arrow-up" />
             </span>
@@ -324,8 +325,11 @@
           </button>
         </div>
       </div>
+      
     </div>
+    -->
     <div class="mt-2 lg:flex block lg:gap-2">
+      <!--
       <div
         class="mt-2 bg-white dark:bg-gray-800 p-5 w-full rounded-md box-border shadow"
       >
@@ -369,28 +373,31 @@
           </div>
         </div>
       </div>
+      -->
       <div
         class="mt-2 bg-white dark:bg-gray-800 p-5 w-full rounded-md box-border shadow"
       >
         <h2 class="font-bold text-lg text-gray-800 dark:text-gray-200">
-          5,355
+          {{seriesStake[0].total}} WAX
         </h2>
-        <p class="text-gray-400 font-lexend font-normal">Visitor this week</p>
+        <p class="text-gray-400 font-lexend font-normal">Stake Quantity this week</p>
         <span class="float-right">
+          <!--
           <h2 class="text-green-500 -mt-12 flex">
             <span class="mr-2"> 47.9% </span
             ><span>
               <Icon icon="akar-icons:arrow-up" />
             </span>
           </h2>
+          -->
         </span>
         <div class="wrapper-chart mt-5">
           <apexchart
-            width="100%"
+            width="110%"
             height="380"
             type="area"
             :options="optionsVisitor"
-            :series="seriesVisitor"
+            :series="seriesStake"
           ></apexchart>
           <br />
           <hr />
@@ -447,6 +454,7 @@
         </div>
       </div>
     </div>
+    
     <div
       class="mt-2 bg-white dark:bg-gray-800 p-5 w-full rounded-md box-border shadow"
     >
@@ -466,43 +474,29 @@
             <tr>
               <th scope="col" class="uppercase px-6 py-3">Transaction</th>
               <th scope="col" class="uppercase px-6 py-3">Date & Time</th>
-              <th scope="col" class="uppercase px-6 py-3">Amount</th>
+              <th scope="col" class="uppercase px-6 py-3">Amount (WAX)</th>
               <th scope="col" class="uppercase px-6 py-3">Status</th>
             </tr>
           </thead>
           <tbody>
             <tr
               class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50"
-              v-for="items in tableTransaction"
-              :key="items.transaction"
+              v-for="items in last_history"
+              :key="items.last_history"
             >
               <td class="px-6 py-4">
-                {{ items.transaction }}
+               <a :href="'https://wax.bloks.io/transaction/'+ items.tx_id" target="_blank"> {{ items.tx_id }} </a>
               </td>
               <td class="px-6 py-4">
-                {{ items.datetime }}
+                {{ items.date }}
               </td>
               <td class="px-6 py-4">
-                {{ items.amount }}
+                {{ items.quantity }}
               </td>
               <td class="px-6 py-4">
                 <span
                   class="text-green-800 bg-green-300 px-3 py-1 rounded-md"
-                  v-if="items.statusTransaction == 'completed'"
                 >
-                  {{ items.statusTransaction }}
-                </span>
-                <span
-                  class="text-purple-800 bg-purple-300 px-3 py-1 rounded-md"
-                  v-else-if="items.statusTransaction == 'progress'"
-                >
-                  {{ items.statusTransaction }}
-                </span>
-                <span
-                  class="text-red-800 bg-red-300 px-3 py-1 rounded-md"
-                  v-else
-                >
-                  {{ items.statusTransaction }}
                 </span>
               </td>
             </tr>
@@ -530,6 +524,10 @@
 <script>
   // @ is an alias to /src
   import { Icon } from "@iconify/vue";
+  import {HTTP} from "@/main.js";
+  import {waxs} from "@/main.js";
+  import {ax} from "@/main.js";
+import { thisExpression } from "@babel/types";
 
   export default {
     name: "Dashboard",
@@ -621,6 +619,7 @@
         ],
         optionsVisitor: {
           chart: {
+
             toolbar: {
               show: false,
             },
@@ -634,15 +633,18 @@
           legend: {
             show: false,
           },
+          labels : ["a","b","c","d","e","f","g"],
           xaxis: {
-            show: false,
+           // type : "datetime",
+          //  categories: ["", "", "", "", "", "" , ""],
+            show: true,
           },
           yaxis: {
-            show: false,
+            show: true,
           },
           colors: ["#4f46e5"],
           dataLabels: {
-            enabled: false,
+            enabled: true,
           },
           fill: {
             type: "gradient",
@@ -661,7 +663,7 @@
         seriesVisitor: [
           {
             name: "Visitor ",
-            data: [30, 40, 45, 50, 49, 60, 70, 91],
+            data: [30, 40, 45, 50, 49, 60, 70, 91,20,30,50],
           },
         ],
         optionsDonut: {
@@ -702,12 +704,315 @@
             statusTransaction: "cancelled",
           },
         ],
+
+        last_history : [
+          {
+          tx_id : "",
+          date : "",
+          quantity : "",
+          days : "",
+          },
+          {
+          tx_id : "",
+          date : "",
+          quantity : "",
+          days : "",
+          },
+          {
+          tx_id : "",
+          date : "",
+          quantity : "",
+          days : "",
+          },
+          {
+          tx_id : "",
+          date : "",
+          quantity : "",
+          days : "",
+          },
+          {
+          tx_id : "",
+          date : "",
+          quantity : "",
+          days : "",
+          },
+        ],
+        seriesStake: [
+          {
+            name: "Stake Quantity",
+            data: [0,0,0,0,0,0,0],
+            total: 0,
+          },
+        ],
+        testimage : "",
+        pool_remain : "",
+        total_transaction : "",
+        current_customer : "",
+        total_refund : 0,
+        node : [
+          "maloanwaxme1",
+          "maloanwaxmea",
+          "maloanwaxmeb",
+          "maloanwaxmec",
+          "maloanwaxmed",
+          "maloanwaxmee",
+          "maloanwaxmef",
+        ],
+
+
       };
       // end chart data line
     },
     components: {
       Icon,
     },
-    mounted() {},
+    methods: {
+      async getPoolRemain(){
+          await waxs.post(`/v1/chain/get_table_rows`,{
+          json: true,
+          code: "eosio.token",
+          scope: "maloanwaxme1",
+          table: "accounts",
+          lower_bound: "WAX",
+          upper_bound: "WAX",
+          limit: 1,
+        })
+        .then(res => {
+          if(res.status = 200){
+            var rows = res.data.rows;
+            this.pool_remain = parseFloat(rows[0].balance)
+           // console.log(this.pool_remain)
+          }
+
+            //this.pool_remain = res.data.rows[0].balance
+        })
+        .catch(e => {console.log(e);
+        });
+      },
+
+      async getTotalTransaction(){
+        await waxs.post(`/v1/chain/get_table_rows`,{
+          json: true,
+          code: "maloanwaxme1",
+          scope: "maloanwaxme1",
+          table: "stakinglist",
+          limit : 100,
+        })
+        .then(res => {
+          if(res.status = 200){
+            var rows = res.data.rows;
+           // console.log(rows[res.data.rows.length-1].id)
+
+          //  console.log(rows)
+            this.total_transaction = rows[res.data.rows.length-1].id
+          //  console.log(this.total_transaction)
+          }
+
+            //this.pool_remain = res.data.rows[0].balance
+        })
+        .catch(e => {console.log(e);
+        });
+      },
+
+      async getCurrentCustomer(){
+        await waxs.post(`/v1/chain/get_table_rows`,{
+          json: true,
+          code: "maloanwaxme1",
+          scope: "maloanwaxme1",
+          table: "stakinglist",
+          limit : 100,
+        })
+        .then(res => {
+          if(res.status = 200){
+            var rows = res.data.rows;
+           // console.log(rows[res.data.rows.length-1].id)
+
+          //  console.log(rows)
+            this.current_customer = rows.length
+          //  console.log(this.current_customer)
+          }
+
+            //this.pool_remain = res.data.rows[0].balance
+        })
+        .catch(e => {console.log(e);
+        });
+      },
+
+      async getRefunds(index){
+          await waxs.get(`https://wax.eosphere.io/v2/state/get_account?account=`+this.node[index],{
+            json: true,
+          })
+          .then(res => {
+            if(res.status = 200){
+             // var rows = res.data.rows;
+
+              //this.current_customer = rows.length
+
+             // this.total_refund += Math.floor(parseFloat(rows[0].cpu_amount))
+
+          if(res.data.account.refund_request != null){
+
+           console.log(Math.floor(parseFloat(res.data.account.refund_request.cpu_amount)))
+
+            this.total_refund += Math.floor(parseFloat(res.data.account.refund_request.cpu_amount))
+           return Math.floor(parseFloat(res.data.account.refund_request.cpu_amount))
+          }
+
+             // rows = undefined
+
+            }
+
+              //this.pool_remain = res.data.rows[0].balance
+          })
+          .catch(e => {
+            console.log(e);
+          });
+
+      },
+
+      async getTotalRefunds(){
+
+          for(let i=0;i<this.node.length;i++){
+            /*
+            asynchronousProcess(i, function() {
+              //  this.total_refund += await this.getRefunds(i)
+               console.log(i)
+            })*/
+
+            await this.getRefunds(i)
+          }
+         console.log(this.total_refund)
+      },
+
+      async getLastTransaction(){
+        await ax.get(`https://wax.eosphere.io/v2/history/get_actions?limit=100&account=maloanwaxme1&sort=desc`,{
+          json: true,
+        })
+        .then(res => {
+          if(res.status = 200){
+
+           var count = 0;
+            for(var i=0;i< res.data.actions.length;i++){
+             
+
+             if(res.data.actions[i].act.name == "transfer" && res.data.actions[i].act.data.from == "maloanwaxme1" && res.data.actions[i].act.data.to != "maloanwallet"){
+              this.last_history[count].tx_id = res.data.actions[i].trx_id
+              this.last_history[count].date = res.data.actions[i].timestamp
+              this.last_history[count].quantity = res.data.actions[i].act.data.amount
+              console.log(res.data.actions[i].act)
+              count++;
+             }
+
+             if(count == 5){
+              break;
+             }
+
+            }
+          }
+           // console.log(this.last_history)
+            //this.pool_remain = res.data.rows[0].balance
+        })
+        .catch(e => {console.log(e);
+        });
+      },
+
+      async getStakeSeries(){
+
+      var today = new Date()
+
+      var lastweek = new Date(today.setDate(today.getDate() - 7))
+
+      var temp_date = new Date(lastweek)
+      // set option xaxis categories
+      for(var j=0;j<7;j++){
+        // var temp_date = lastweek
+        this.optionsVisitor.labels[j] = new Date(temp_date.setDate(temp_date.getDate() + 1)).toDateString()
+      // var t_date = new Date(temp_date.setDate(temp_date.getDate() + 1))
+        console.log(this.optionsVisitor.labels[j])
+      }
+
+     // console.log(lastweek.toISOString());
+
+        await ax.get('https://wax.eosrio.io/v2/history/get_actions?limit=100&account=maloanwaxme1&sort=asc&after='+lastweek.toISOString(),{
+          json: true,
+        })
+        .then(res => {
+          if(res.status = 200){
+           var count = 0; 
+           //var i_date = 1;
+           var date_check = new Date(lastweek)
+            for(var i=0;i< res.data.actions.length;i++){
+             date_check = new Date(lastweek)
+              for(var i_date = 0;i_date < 7;i_date++){
+
+               //console.log( res.data.actions[i].timestamp +" < " +new Date(date_check.setDate(date_check.getDate() + 1)).toISOString())
+               // console.log( res.data.actions[i].timestamp +" >= " +date_check)
+              if(res.data.actions[i].timestamp >= date_check.toISOString() && res.data.actions[i].timestamp < new Date(date_check.setDate(date_check.getDate() + 1)).toISOString()){
+
+                console.log("true");
+                if(res.data.actions[i].act.name == "transfer" && res.data.actions[i].act.data.from == "maloanwaxme1" && res.data.actions[i].act.data.to != "maloanwallet"){
+                /* this.last_history[count].tx_id = res.data.actions[i].trx_id
+                  this.last_history[count].date = res.data.actions[i].timestamp
+                  this.last_history[count].quantity = res.data.actions[i].act.data.amount
+                  console.log(res.data.actions[i].act)
+                  count++;*/
+
+                  this.seriesStake[0].data[i_date] += res.data.actions[i].act.data.amount
+                  this.seriesStake[0].total += res.data.actions[i].act.data.amount
+
+                 // console.log("day "+(i_date+1)+": add "+res.data.actions[i].act.data.amount)
+
+                }
+              }
+
+              }
+
+            
+
+            }
+          }
+            //console.log(this.last_history)
+            //this.pool_remain = res.data.rows[0].balance
+            /*
+            const s = new Date("2022-06-10T13:51:43.500")
+            const t = new Date()
+            const a = new Date("2022-06-11T00:00:00.000")
+            var x = new Date(a.setDate(a.getDate() + 1))
+            var z = new Date(a.setDate(a.getDate() - 1))
+            if(s >= a && s< x)
+            console.log(1)
+            */
+
+
+        })
+        .catch(e => {console.log(e);
+        });
+      },
+    },
+    mounted() {
+      this.getPoolRemain()
+
+      this.getTotalTransaction()
+
+      this.getCurrentCustomer()
+
+      this.getLastTransaction()
+
+      this.getStakeSeries()
+
+      this.getTotalRefunds()
+
+      var today = new Date()
+
+      var lastweek = new Date(today.setDate(today.getDate() - 7))
+
+      var date_check = new Date(lastweek)
+
+     // console.log("https://api.waxsweden.org:443/v2/history/get_actions?limit=100&account=maloanwaxme1&sort=asc&after="+lastweek.toISOString())
+
+    // console.log(this.seriesStake[0].data)
+ //   console.log( this.optionsVisitor.xaxis.categories)
+  console.log("total_refund : "+ this.total_refund)
+    },
   };
 </script>

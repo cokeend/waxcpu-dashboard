@@ -8,7 +8,7 @@
           class="text-2xl font-normal text-gray-800 dark:text-gray-500"
           translate="no"
         >
-          Windzo<span class="text-primary">.</span>
+          Maloanwax<span class="text-primary">.</span>
           <span
             class="bg-gray-700 absolute mt-2 dark:block hidden rounded-md py-1 px-2 text-xs text-gray-200"
             >Dark mode</span
